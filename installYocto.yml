@@ -4,9 +4,9 @@
   gather_facts: true
   vars:
     is_WSL: "{{ ansible_kernel.find('WSL') }}"
-    DISTRO_VERSION: 3.4.2
+    DISTRO_VERSION: 3.4
     YOCTO_BRANCH: honister
-    MACHINE: raspberrypi4-64
+    MACHINE: raspberrypi3-64
   tasks:
     - name: Check yocto resources
       ansible.builtin.stat:

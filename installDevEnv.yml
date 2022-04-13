@@ -11,5 +11,5 @@
         update_cache: yes
 
     - name: install yocto dependencies
-      command: apt install -y gawk wget git-core diffstat unzip texinfo build-essential chrpath socat cpio python3 libsdl1.2-dev xterm make xsltproc docbook-utils fop dblatex xmlto libssl-dev pv
+      command: apt install -y gawk wget git-core diffstat unzip texinfo build-essential chrpath socat cpio python3 zstd libsdl1.2-dev xterm make xsltproc docbook-utils fop dblatex xmlto libssl-dev pv
 
