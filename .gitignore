@@ -3,3 +3,5 @@ sources
 repoTool
 conf
 raspberrypi*
+dl
+sstate

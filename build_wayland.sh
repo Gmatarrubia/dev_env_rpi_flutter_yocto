@@ -6,10 +6,13 @@ export MACHINE=raspberrypi3-64
 rm "$MACHINE/conf/local.conf"
 
 source ./setup-environment "$MACHINE"
-#echo -e 'CORE_IMAGE_EXTRA_INSTALL += " \' >> conf/local.conf
-#echo -e '  flutter-pi \' >> conf/local.conf
-#echo -e '  flutter-drm-gbm-backend \' >> conf/local.conf
-#echo -e '"\n' >> conf/local.conf
+DISTRO_FEATURES_append = " wayland"
+echo -e 'CORE_IMAGE_EXTRA_INSTALL += " \' >> conf/local.conf
+echo -e '  flutter-wayland \' >> conf/local.conf
+echo -e '  flutter-wayland-client \' >> conf/local.conf
+echo -e '  flutter-weston-desktop-shell \' >> conf/local.conf
+echo -e '  flutter-weston-desktop-shell-virtual-keyboard \' >> conf/local.conf
+echo -e '"\n' >> conf/local.conf
 echo -e 'CONNECTIVITY_CHECK_URIS = "https://www.yoctoproject.org/"' >> conf/local.conf
 
 
@@ -44,4 +47,4 @@ echo '***************************************'
 bitbake -e > bb.environment
 
 . ./sources/poky/oe-init-build-env "$MACHINE"
-time bitbake core-image-minimal
+bitbake core-image-weston
