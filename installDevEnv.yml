@@ -1,0 +1,15 @@
+---
+- name: Ansible playbook for installing the yocto dev env
+  hosts: localhost
+  user: root
+  vars:
+      is_WSL: "{{ ansible_kernel.find('WSL') }}"
+
+  tasks:
+    - name: Run "apt-get update"
+      apt:
+        update_cache: yes
+
+    - name: install yocto dependencies
+      command: apt install -y gawk wget git-core diffstat unzip texinfo build-essential chrpath socat cpio python3 libsdl1.2-dev xterm make xsltproc docbook-utils fop dblatex xmlto libssl-dev pv
+
