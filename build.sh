@@ -2,8 +2,8 @@
 
 repoPath="$(dirname $(realpath ${BASH_SOURCE[0]}))"
 
-export MACHINE=raspberrypi3-64
-rm "$MACHINE/conf/local.conf"
+export MACHINE=raspberrypi3
+rm -f "$MACHINE/conf/local.conf"
 
 source ./setup-environment "$MACHINE"
 #echo -e 'CORE_IMAGE_EXTRA_INSTALL += " \' >> conf/local.conf
@@ -43,5 +43,19 @@ bitbake -e core-image-minimal | grep "^DISTRO_FEATURES"
 echo '***************************************'
 bitbake -e > bb.environment
 
-. ./sources/poky/oe-init-build-env "$MACHINE"
+echo 'CORE_IMAGE_EXTRA_INSTALL:append = " \
+              flutter-pi-release \
+              flutter-gallery-release \
+              swiftshader \
+              vkcube \
+              vkquake3 \
+              vkrunner \
+              vk-layer-perfdoc \
+              gstreamer1.0-libav \
+              gstreamer1.0-plugins-bad \
+              gstreamer1.0-plugins-good \
+              gstreamer1.0-plugins-ugly \
+              "' >> ./conf/local.conf
+
+#. ./sources/poky/oe-init-build-env "$MACHINE"
 time bitbake core-image-minimal
