@@ -6,7 +6,7 @@
     is_WSL: "{{ ansible_kernel.find('WSL') }}"
     DISTRO_VERSION: 3.4
     YOCTO_BRANCH: honister
-    MACHINE: raspberrypi3-64
+    MACHINE: raspberrypi3
   tasks:
     - name: Check yocto resources
       ansible.builtin.stat:
@@ -14,7 +14,7 @@
       register: p
     - name: Init repo with Google repo tool
       when: not p.stat.exists
-      command: repo init -u https://github.com/jwinarske/manifests.git -m rpi64.xml -b "{{ YOCTO_BRANCH }}"
+      command: repo init -u https://github.com/Gmatarrubia/yocto-rpi-manifests.git -m rpi32.xml -b "{{ YOCTO_BRANCH }}"
     - name: Repo sync force
       command: repo sync --force-sync --no-clone-bundle -j "{{ansible_processor_vcpus}}"
     - name: Checking out specifict branch
@@ -22,7 +22,7 @@
       args:
         chdir: sources/poky
     - name: Applying patch for Vulkan
-      command: git apply ../../conf/rpi64/0001-mesa-broadcom-vulkan.patch
+      command: git apply ../../manifest/rpi32/0001-mesa-broadcom-vulkan.patch
       args:
         chdir: sources/poky
 

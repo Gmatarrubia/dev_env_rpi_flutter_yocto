@@ -1,7 +1,9 @@
 sources
 .repo
 repoTool
-conf
+manifest
 raspberrypi*
 dl
 sstate
+bb.environment
+setup-environment
