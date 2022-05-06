@@ -1,0 +1,22 @@
+#!/bin/bash
+
+MACHINE=$1
+
+source ./sources/poky/oe-init-build-env "${MACHINE}"
+
+bitbake-layers add-layer \
+../sources/meta-raspberrypi \
+../sources/meta-openembedded/meta-filesystems \
+../sources/meta-openembedded/meta-oe \
+../sources/meta-openembedded/meta-multimedia \
+../sources/meta-openembedded/meta-networking \
+../sources/meta-openembedded/meta-python \
+../sources/meta-openembedded/meta-perl \
+../sources/meta-security \
+../sources/meta-clang \
+../sources/meta-vulkan \
+../sources/meta-flutter \
+../meta-config-pi \
+../meta-flutter-app
+
+sed -i "s|MACHINE ??= \"qemux86-64\"|MACHINE ?= \"$MACHINE\"|g" conf/local.conf

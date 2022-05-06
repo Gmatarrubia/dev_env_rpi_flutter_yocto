@@ -1,2 +1,2 @@
 
-IMAGE_INSTALL += " rpi-weather"
+#IMAGE_INSTALL += " rpi-weather"

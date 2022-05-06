@@ -7,3 +7,5 @@ dl
 sstate
 bb.environment
 setup-environment
+disk.img
+output.*

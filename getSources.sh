@@ -10,5 +10,4 @@ check_vscode
 check_ansible
 check_googleRepoTool
 
-sudo ansible-playbook installDevEnv.yml
 ansible-playbook installYocto.yml

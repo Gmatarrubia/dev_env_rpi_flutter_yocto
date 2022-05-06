@@ -21,9 +21,4 @@
       command: git checkout "{{ YOCTO_BRANCH }}-{{DISTRO_VERSION}}"
       args:
         chdir: sources/poky
-    - name: Applying patch for Vulkan
-      command: git apply ../../manifest/rpi32/0001-mesa-broadcom-vulkan.patch
-      args:
-        chdir: sources/poky
-
 
