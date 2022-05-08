@@ -1,0 +1,14 @@
+#  This file is intended to work with systemd.
+
+[Unit]
+Description=Run flutter app
+After=dev-%i.device systemd-user-sessions.service plymouth-quit-wait.service getty-pre.target
+After=rc-local.service
+
+[Service]
+ExecStart=/usr/bin/flutter-pi --release /usr/share/gallery
+Restart=always
+KillMode=process
+
+[Install]
+WantedBy=default.target
