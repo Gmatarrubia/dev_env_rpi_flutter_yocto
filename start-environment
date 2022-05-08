@@ -4,6 +4,18 @@ MACHINE=$1
 
 source ./sources/poky/oe-init-build-env "${MACHINE}"
 
+# Check if WIFIPASS has been set previously
+# In negative case this should be set now
+if [ -z "${WIFIPASS}" ]
+then
+    read -p "Enter your ssid: " WIFISSID
+    read -p "Enter your pass: " WIFIPASS
+fi
+    pushd ../meta-config-pi/recipes-system/network-settings/wifi || return
+    sed -i "s/SSID/$WIFISSID/g" wpa_supplicant.conf
+    sed -i "s/WIFIPASS/$WIFIPASS/g" wpa_supplicant.conf
+    popd || return
+
 bitbake-layers add-layer \
 ../sources/meta-raspberrypi \
 ../sources/meta-openembedded/meta-filesystems \
