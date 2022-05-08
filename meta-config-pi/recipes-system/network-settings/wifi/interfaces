@@ -1,3 +1,5 @@
+auto wlan0
+
 iface wlan0 inet dhcp
   wireless_mode managed
   wireless_essid any
