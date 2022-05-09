@@ -8,7 +8,7 @@ After=rc-local.service
 [Service]
 Type=oneshot
 ExecStart=/sbin/ifup wlan0
-RemainAfterExit=false
+RemainAfterExit=true
 
 [Install]
 WantedBy=default.target
