@@ -2,8 +2,7 @@
 
 [Unit]
 Description=Up Wlan0
-After=dev-%i.device systemd-user-sessions.service plymouth-quit-wait.service getty-pre.target
-After=rc-local.service
+After=After=network.target sockets.target
 
 [Service]
 Type=oneshot
