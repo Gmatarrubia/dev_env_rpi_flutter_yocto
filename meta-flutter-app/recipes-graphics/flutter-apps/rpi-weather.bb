@@ -15,9 +15,13 @@ PUBSPEC_APPNAME = "rpi_weather"
 FLUTTER_RUNTIME = "release"
 
 
-DEPENDS += "\
+DEPENDS += " \
     flutter-engine-${FLUTTER_RUNTIME} \
     flutter-pi-${FLUTTER_RUNTIME} \
-    "
+"
+
+RDEPENS += " \
+    flutter-pi-${FLUTTER_RUNTIME} \
+"
 
 inherit flutter-app
