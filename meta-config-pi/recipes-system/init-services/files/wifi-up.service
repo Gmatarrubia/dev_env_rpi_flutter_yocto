@@ -1,0 +1,14 @@
+#  This file is intended to work with systemd.
+
+[Unit]
+Description=Up Wlan0
+After=dev-%i.device systemd-user-sessions.service plymouth-quit-wait.service getty-pre.target
+After=rc-local.service
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/ifup wlan0
+RemainAfterExit=false
+
+[Install]
+WantedBy=default.target
