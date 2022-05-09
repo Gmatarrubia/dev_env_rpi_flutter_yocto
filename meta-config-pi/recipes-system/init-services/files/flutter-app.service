@@ -6,7 +6,7 @@ After=dev-%i.device systemd-user-sessions.service plymouth-quit-wait.service get
 After=rc-local.service
 
 [Service]
-ExecStart=/usr/bin/flutter-pi --release /usr/share/gallery
+ExecStart=/usr/bin/flutter-pi --release /usr/share/rpi_weather
 Restart=always
 KillMode=process
 
