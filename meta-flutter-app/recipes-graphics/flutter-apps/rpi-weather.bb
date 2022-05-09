@@ -14,8 +14,10 @@ S = "${WORKDIR}/git"
 PUBSPEC_APPNAME = "rpi_weather"
 FLUTTER_RUNTIME = "release"
 
+
 DEPENDS += "\
     flutter-engine-${FLUTTER_RUNTIME} \
+    flutter-pi-${FLUTTER_RUNTIME} \
     "
 
 inherit flutter-app
