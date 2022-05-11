@@ -21,9 +21,15 @@ while (( $# )); do
     shift
 done
 
+# Check if sources were downloaded
+if [ ! -d "${repoPath}/sources" ]
+then
+    "${repoPath}"/getSources.sh
+fi
+
 # Start configuration
 export MACHINE=raspberrypi3
-rm -f "$MACHINE/conf/local.conf"
+rm -rf "${MACHINE}"/conf/*
 
 source ./start-environment "$MACHINE"
 echo '***************************************'

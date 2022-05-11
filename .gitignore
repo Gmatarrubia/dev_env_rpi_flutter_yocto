@@ -9,3 +9,9 @@ bb.environment
 setup-environment
 disk.img
 output.*
+.bash_history
+.ansible
+.config
+.dart
+.wget-hsts
+.repoconfig

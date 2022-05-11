@@ -1,14 +1,17 @@
 #!/bin/bash
 
 set -e
-currentPath="$(dirname $(realpath ${BASH_SOURCE[0]}))"
+currentPath="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 
 source ./checkFunctions.sh
 
 ## Script entry
-check_vscode
+if [ -z "${INSIDE_DOCKER}" ]
+then
+    echo "Not needed vscode inside docker. Skiping!"
+    check_vscode
+fi
 check_ansible
 check_googleRepoTool
 
 sudo ansible-playbook installDevEnv.yml
-ansible-playbook installYocto.yml
