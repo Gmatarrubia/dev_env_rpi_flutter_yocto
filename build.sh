@@ -2,32 +2,60 @@
 
 repoPath="$(dirname $(realpath ${BASH_SOURCE[0]}))"
 
+# Script arguments handle
+__verbose=
+__bitbake_cmd=
+
+while (( $# )); do
+    case ${1,,} in
+        -v|--verbose)
+            __verbose=1
+            echo "Verbose output enabled"
+            ;;
+        -bc|--bitbake-cmd)
+            shift
+            __bitbake_cmd=("${@}")
+            echo Custom bitbake command: "${__bitbake_cmd[@]}"
+            ;;
+    esac
+    shift
+done
+
+# Start configuration
 export MACHINE=raspberrypi3
 rm -f "$MACHINE/conf/local.conf"
 
 source ./start-environment "$MACHINE"
-
 echo '***************************************'
-echo -e 'CONNECTIVITY_CHECK_URIS = "https://www.yoctoproject.org/"' >> conf/local.conf
-echo -e 'DISTRO = "flutterpi"' >> ./conf/local.conf
-echo -e "DL_DIR = \"$repoPath/dl\"" >> ./conf/local.conf
-echo -e "SSTATE_DIR = \"$repoPath/sstate\"" >> ./conf/local.conf
-echo -e "SSTATE_MIRRORS = \"file://.* file://$repoPath/sstate/PATH\"" >> ./conf/local.conf
-echo -e 'SSTATE_MIRRORS += "file://.* http://sstate.yoctoproject.org/honister/PATH;downloadfilename=PATH"' >> ./conf/local.conf
+
+# Write config in conf/local.conf
+{ \
+echo -e 'CONNECTIVITY_CHECK_URIS = "https://www.yoctoproject.org/"';
+echo -e 'DISTRO = "flutterpi"';
+echo -e "DL_DIR = \"$repoPath/dl\""; \
+echo -e "SSTATE_DIR = \"$repoPath/sstate\"";
+echo -e "SSTATE_MIRRORS = \"file://.* file://$repoPath/sstate/PATH\"";
+echo -e 'SSTATE_MIRRORS += "file://.* http://sstate.yoctoproject.org/honister/PATH;downloadfilename=PATH"';
+} >> ./conf/local.conf
 
 ##NOTE Enable verbose option
-#echo '********** ./conf/local.conf **********'
-#cat ./conf/local.conf
-#echo '***************************************'
-#bitbake-layers show-layers
-#echo '***************************************'
-#bitbake -e virtual/kernel | grep "^PV"
-#bitbake -e virtual/kernel | grep "^PN"
-#echo '***************************************'
-#bitbake -e core-image-minimal | grep "^DISTRO_FEATURES"
-#echo '***************************************'
-#bitbake -e > bb.environment
-#bitbake rpi-weather -D
+if [ -n  "${__verbose}" ]
+then
+    echo '***************************************'
+    bitbake-layers show-layers
+    echo '***************************************'
+    bitbake -e virtual/kernel | grep "^PV"
+    bitbake -e virtual/kernel | grep "^PN"
+    echo '***************************************'
+    bitbake -e > bb.environment
+fi
 
 ###Enable option for only start
-time bitbake core-image-minimal
+
+if [ -z "${__bitbake_cmd[*]}" ]
+then
+    time bitbake core-image-minimal
+else
+    echo "Executing command: ${__bitbake_cmd[*]}"
+    time "${__bitbake_cmd[@]}"
+fi

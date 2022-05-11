@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# This file is intended to be sourced, not run directly
+if [ -n "$BASH_SOURCE" ]; then
+    THIS_SCRIPT=$BASH_SOURCE
+fi
+if [ "$0" = "$THIS_SCRIPT" ]; then
+    echo "Error: This script needs to be sourced. Please run as '. $THIS_SCRIPT'" >&2
+    exit 1
+fi
+
 MACHINE=$1
 
 source ./sources/poky/oe-init-build-env "${MACHINE}"
