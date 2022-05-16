@@ -40,7 +40,8 @@ RUN apt -y update && \
         diffstat \
         liblz4-1 \
         liblz4-tool \
-        zstd
+        zstd \
+        bmap-tools
 
 RUN apt clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

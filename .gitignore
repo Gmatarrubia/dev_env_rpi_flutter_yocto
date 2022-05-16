@@ -8,6 +8,7 @@ sstate
 bb.environment
 setup-environment
 disk.img
+*.bak
 output.*
 .bash_history
 .ansible
@@ -15,3 +16,5 @@ output.*
 .dart
 .wget-hsts
 .repoconfig
+.flutter
+.vpython-root/**/*
