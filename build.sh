@@ -1,10 +1,12 @@
 #!/bin/bash
 
 repoPath="$(dirname $(realpath ${BASH_SOURCE[0]}))"
+source checkFunctions.sh
 
 # Script arguments handle
 __verbose=
 __bitbake_cmd=
+__only_shell=
 
 while (( $# )); do
     case ${1,,} in
@@ -17,51 +19,48 @@ while (( $# )); do
             __bitbake_cmd=("${@}")
             echo Custom bitbake command: "${__bitbake_cmd[@]}"
             ;;
+        --shell)
+            __only_shell=1
+            echo "Only shell mode"
+            ;;
     esac
     shift
 done
 
+# Start configuration
+export MACHINE=raspberrypi3
+export CONF_FILE="${repoPath}/rpi-flutter.yml"
+export KAS_BUILD_DIR="${repoPath}/${MACHINE}"
+export DL_DIR="${repoPath}/dl"
+export SSTATE_DIR="${repoPath}/sstate"
+rm -rf "${MACHINE}"/conf/*
+
+#Check availability of the kas tool
+check_kas
+
 # Check if sources were downloaded
 if [ ! -d "${repoPath}/sources" ]
 then
-    "${repoPath}"/getSources.sh
+    source ./start-environment "${CONF_FILE}"
 fi
-
-# Start configuration
-export MACHINE=raspberrypi3
-rm -rf "${MACHINE}"/conf/*
-
-source ./start-environment "$MACHINE"
-echo '***************************************'
-
-# Write config in conf/local.conf
-{ \
-echo -e 'CONNECTIVITY_CHECK_URIS = "https://www.yoctoproject.org/"';
-echo -e 'DISTRO = "flutterpi"';
-echo -e "DL_DIR = \"$repoPath/dl\""; \
-echo -e "SSTATE_DIR = \"$repoPath/sstate\"";
-echo -e "SSTATE_MIRRORS = \"file://.* file://$repoPath/sstate/PATH\"";
-echo -e 'SSTATE_MIRRORS += "file://.* http://sstate.yoctoproject.org/honister/PATH;downloadfilename=PATH"';
-} >> ./conf/local.conf
 
 ##NOTE Enable verbose option
 if [ -n  "${__verbose}" ]
 then
     echo '***************************************'
-    bitbake-layers show-layers
+    kas shell -c "bitbake-layers show-layers"
     echo '***************************************'
-    bitbake -e virtual/kernel | grep "^PV"
-    bitbake -e virtual/kernel | grep "^PN"
+    kas shell -c "bitbake -e virtual/kernel | grep '^PV'"
+    kas shell -c "bitbake -e virtual/kernel | grep '^PN'"
     echo '***************************************'
-    bitbake -e > bb.environment
+    kas shell -c "bitbake -e" > bb.environment
 fi
 
 ###Enable option for only start
-
 if [ -z "${__bitbake_cmd[*]}" ]
 then
-    time bitbake core-image-minimal
+    time kas build "${CONF_FILE}"
 else
     echo "Executing command: ${__bitbake_cmd[*]}"
-    time "${__bitbake_cmd[@]}"
+    time kas shell -c "${__bitbake_cmd[@]}"
 fi

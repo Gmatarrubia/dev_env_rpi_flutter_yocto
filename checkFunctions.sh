@@ -32,15 +32,12 @@ function check_vscode(){
         code --install-extension ms-vscode-remote.vscode-remote-extensionpack timonwong.shellcheck
     fi
 }
-
-function check_googleRepoTool(){
-    repoToolDir="$currentPath/repoTool"
-    repoToolBinary="$repoToolDir/repo"
-    PATH="$repoToolDir:${PATH}"
-    if [ ! -f "$repoToolDir" ]
+function check_kas(){
+    # Check kas command
+    if [ -n "$(which kas)" ]
     then
-        mkdir -p "$repoToolDir"
-    	curl https://storage.googleapis.com/git-repo-downloads/repo > "$repoToolBinary"
-    	chmod a+rx "$repoToolBinary"
+        pip install kas
+    else
+        echo "Kas has already installed"
     fi
 }

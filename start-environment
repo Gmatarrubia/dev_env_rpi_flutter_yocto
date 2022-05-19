@@ -9,10 +9,6 @@ if [ "$0" = "$THIS_SCRIPT" ]; then
     exit 1
 fi
 
-MACHINE=$1
-
-source ./sources/poky/oe-init-build-env "${MACHINE}"
-
 # Check if WIFIPASS has been set previously
 # In negative case this should be set now
 if [ -z "${WIFIPASS}" ]
@@ -20,24 +16,9 @@ then
     read -p "Enter your ssid: " WIFISSID
     read -p "Enter your pass: " WIFIPASS
 fi
-    pushd ../meta-config-pi/recipes-system/network-settings/wifi || return
+    pushd ./meta-config-pi/recipes-system/network-settings/wifi || return
     sed -i "s/SSID/$WIFISSID/g" wpa_supplicant.conf
     sed -i "s/WIFIPASS/$WIFIPASS/g" wpa_supplicant.conf
     popd || return
 
-bitbake-layers add-layer \
-../sources/meta-raspberrypi \
-../sources/meta-openembedded/meta-filesystems \
-../sources/meta-openembedded/meta-oe \
-../sources/meta-openembedded/meta-multimedia \
-../sources/meta-openembedded/meta-networking \
-../sources/meta-openembedded/meta-python \
-../sources/meta-openembedded/meta-perl \
-../sources/meta-security \
-../sources/meta-clang \
-../sources/meta-vulkan \
-../sources/meta-flutter \
-../meta-config-pi \
-../meta-flutter-app
-
-sed -i "s|MACHINE ??= \"qemux86-64\"|MACHINE ?= \"$MACHINE\"|g" conf/local.conf
+kas checkout "${1}"

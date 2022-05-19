@@ -18,3 +18,5 @@ output.*
 .repoconfig
 .flutter
 .vpython-root/**/*
+.repo_.gitconfig.json
+build/
