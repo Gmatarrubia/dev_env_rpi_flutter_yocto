@@ -1,0 +1,89 @@
+header:
+  version: 8
+
+machine: raspberrypi3
+distro: flutterpi
+target:
+  - core-image-minimal
+
+repos:
+  meta-raspberrypi:
+    url: https://github.com/agherzan/meta-raspberrypi
+    path: sources/meta-raspberrypi
+    refspec: 378d4b6e7ba64b6a9a701457cc3780fa896ba5dc
+
+  poky:
+    url: https://git.yoctoproject.org/git/poky
+    path: sources/poky
+    refspec: ce323dd1a92a5be02571beddd6c240c215258f39
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+
+  meta-openembedded:
+    url: https://github.com/openembedded/meta-openembedded
+    path: sources/meta-openembedded
+    refspec: 9a0caf5b09e14a28a54c3f8524d97530aeb8152c
+    layers:
+      meta-oe:
+      meta-python:
+      meta-networking:
+      meta-perl:
+      meta-multimedia:
+      meta-filesystems:
+
+  meta-security:
+    url: https://git.yoctoproject.org/git/meta-security
+    path: sources/meta-security
+    refspec: fb77606aef461910db4836bad94d75758cc2688c
+
+  meta-clang:
+    url: https://github.com/kraj/meta-clang
+    path: sources/meta-clang
+    refspec: 088904d40231d9e099c2f5039cd3c2bc47d332d1
+
+  meta-flutter:
+    url: https://github.com/meta-flutter/meta-flutter
+    path: sources/meta-flutter
+    refspec: 050c679e6a3d64c8b43efb2fefbea8dc22139d00
+
+  meta-vulkan:
+    url: https://github.com/jwinarske/meta-vulkan
+    path: sources/meta-vulkan
+    refspec: 8f3f73b9d477196abdfb7859c7970d37f157b28c
+
+  meta-config-pi:
+    path: meta-config-pi
+
+  meta-flutter-app:
+    path: meta-flutter-app
+
+bblayers_conf_header:
+  standard: |
+    POKY_BBLAYERS_CONF_VERSION = "2"
+    BBPATH = "${TOPDIR}"
+    BBFILES ?= ""
+local_conf_header:
+  reduce_diskspace: |
+    INHERIT += "rm_work"
+  standard: |
+    CONF_VERSION = "2"
+    PACKAGE_CLASSES = "package_rpm"
+    SDKMACHINE = "x86_64"
+    USER_CLASSES = "buildstats"
+    PATCHRESOLVE = "noop"
+    DL_DIR ?= "${TOPDIR}/../dl"
+    SSTATE_DIR ?= "${TOPDIR}/../sstate"
+  diskmon: |
+    BB_DISKMON_DIRS = "\
+        STOPTASKS,${TMPDIR},1G,100K \
+        STOPTASKS,${DL_DIR},1G,100K \
+        STOPTASKS,${SSTATE_DIR},1G,100K \
+        STOPTASKS,/tmp,100M,100K \
+        ABORT,${TMPDIR},100M,1K \
+        ABORT,${DL_DIR},100M,1K \
+        ABORT,${SSTATE_DIR},100M,1K \
+        ABORT,/tmp,10M,1K"
+
+

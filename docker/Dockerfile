@@ -50,6 +50,9 @@ RUN dpkg-reconfigure locales && \
     locale-gen en_US.UTF-8 && \
     update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir kas
+
 WORKDIR /yocto
 ENV HOME /yocto
 
