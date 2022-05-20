@@ -36,9 +36,9 @@ function check_kas(){
     # Check kas command
     if [ -n "$(which kas)" ]
     then
-        pip install kas
-    else
         echo "Kas has already installed"
+    else
+        pip install kas
     fi
 }
 

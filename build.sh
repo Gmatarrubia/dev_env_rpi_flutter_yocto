@@ -53,12 +53,12 @@ fi
 if [ -n  "${__verbose}" ]
 then
     echo '***************************************'
-    kas shell -c "bitbake-layers show-layers"
+    kas shell "${CONF_FILE}" -c "bitbake-layers show-layers"
     echo '***************************************'
-    kas shell -c "bitbake -e virtual/kernel | grep '^PV'"
-    kas shell -c "bitbake -e virtual/kernel | grep '^PN'"
+    kas shell "${CONF_FILE}" -c "bitbake -e virtual/kernel | grep '^PV'"
+    kas shell "${CONF_FILE}" -c "bitbake -e virtual/kernel | grep '^PN'"
     echo '***************************************'
-    kas shell -c "bitbake -e" > bb.environment
+    kas shell "${CONF_FILE}" -c "bitbake -e" > bb.environment
 fi
 
 if [ -n "${__only_shell}" ]
@@ -73,5 +73,5 @@ then
     time kas build "${CONF_FILE}"
 else
     echo "Executing command: ${__bitbake_cmd[*]}"
-    time kas shell -c "${__bitbake_cmd[@]}"
+    time kas shell "${CONF_FILE}" -c "${__bitbake_cmd[@]}"
 fi
