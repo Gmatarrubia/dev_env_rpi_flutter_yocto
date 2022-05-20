@@ -12,6 +12,5 @@ then
     check_vscode
 fi
 check_ansible
-check_googleRepoTool
 
 sudo ansible-playbook installDevEnv.yml
