@@ -33,6 +33,7 @@ docker run \
     --env UID="$uid" \
     --env GROUP="$group" \
     --env GID="$gid" \
+    --env SHELL="/bin/bash"
     dev-env-yocto:latest \
     "${@}"
 

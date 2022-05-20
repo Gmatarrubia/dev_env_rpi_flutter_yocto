@@ -17,8 +17,8 @@ then
     read -p "Enter your pass: " WIFIPASS
 fi
     pushd ./meta-config-pi/recipes-system/network-settings/wifi || return
-    sed -i "s/SSID/$WIFISSID/g" wpa_supplicant.conf
-    sed -i "s/WIFIPASS/$WIFIPASS/g" wpa_supplicant.conf
+    sed -i -E "s/ssid=\".*\"/ssid=\"$WIFISSID\"/g" wpa_supplicant.conf
+    sed -i -E "s/psk=\".*\"/psk=\"$WIFIPASS\"/g" wpa_supplicant.conf
     popd || return
 
 kas checkout "${1}"

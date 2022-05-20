@@ -41,3 +41,20 @@ function check_kas(){
         echo "Kas has already installed"
     fi
 }
+
+# Print help
+function print_help(){
+    echo "This script help you with the initial configuration and with the build process."
+    echo "you can use this script with these options:"
+    echo " "
+    echo "-v | --verbose) Prints more detailled output."
+    echo " "
+    echo "-bc | --bitbake-cmd) Performs your custom bitbake/devtool command."
+    echo "    some examples of this:"
+    echo "    ./build.sh --bitbake-cmd bitbake -e > output.sh"
+    echo "    ./build.sh -bc bitbake-getvar core-image-minimal"
+    echo " "
+    echo "--shell) Opens a bitbake shell without do anything else."
+    echo " "
+    echo "-h | --help) Prints this useful help :)"
+}

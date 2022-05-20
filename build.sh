@@ -23,6 +23,10 @@ while (( $# )); do
             __only_shell=1
             echo "Only shell mode"
             ;;
+        -h|--help)
+            print_help
+            exit 0
+            ;;
     esac
     shift
 done
@@ -33,6 +37,7 @@ export CONF_FILE="${repoPath}/rpi-flutter.yml"
 export KAS_BUILD_DIR="${repoPath}/${MACHINE}"
 export DL_DIR="${repoPath}/dl"
 export SSTATE_DIR="${repoPath}/sstate"
+export SHELL="/bin/bash"
 rm -rf "${MACHINE}"/conf/*
 
 #Check availability of the kas tool
@@ -54,6 +59,12 @@ then
     kas shell -c "bitbake -e virtual/kernel | grep '^PN'"
     echo '***************************************'
     kas shell -c "bitbake -e" > bb.environment
+fi
+
+if [ -n "${__only_shell}" ]
+then
+    kas shell -E "${CONF_FILE}"
+    exit 0
 fi
 
 ###Enable option for only start

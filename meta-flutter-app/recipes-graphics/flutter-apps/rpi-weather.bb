@@ -20,7 +20,7 @@ DEPENDS += " \
     flutter-pi-${FLUTTER_RUNTIME} \
 "
 
-RDEPENS += " \
+RDEPENDS_${PN} += " \
     flutter-pi-${FLUTTER_RUNTIME} \
 "
 

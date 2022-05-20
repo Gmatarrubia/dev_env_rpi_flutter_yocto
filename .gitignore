@@ -14,6 +14,7 @@ output.*
 .ansible
 .config
 .dart
+.cache
 .wget-hsts
 .repoconfig
 .flutter
