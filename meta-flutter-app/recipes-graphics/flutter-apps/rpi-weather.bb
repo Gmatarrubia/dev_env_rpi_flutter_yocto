@@ -3,8 +3,9 @@ DESCRIPTION = "Raspi Weather App written in Flutter"
 AUTHOR = "Gonzalo Matarrubia"
 HOMEPAGE = "https://github.com/Gmatarrubia/rpi_weather"
 SECTION = "graphics"
-
 LICENSE = "CLOSED"
+
+inherit flutter-app
 
 SRC_URI = "git://github.com/Gmatarrubia/rpi_weather;protocol=https;branch=main"
 SRCREV = "main"
@@ -23,5 +24,3 @@ DEPENDS += " \
 RDEPENDS_${PN} += " \
     flutter-pi-${FLUTTER_RUNTIME} \
 "
-
-inherit flutter-app

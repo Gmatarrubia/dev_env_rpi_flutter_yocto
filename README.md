@@ -1,41 +1,87 @@
-# dev_env_rpi_flutter_yocto
-### Development environment for building flutter apps for Raspberry Pi 3b+ based on yocto images.
-### Also, you can develop the flutterpi distro itself.
+# Flutterpi OS based on yocto
 
-# Characteristics
+This is the development environment of flutterpi. A raspberry pi linux distro based on poky (yocto) which runs flutter apps. This is very useful for several use cases like: kiosk machines, vending machines, info panels, and a lot of different HMIs. It allows you to develop a HMI quickly, repeatible and fully customizable.
+
+## Dev env characteristics
+
 This devenv has been designed with the following prerequisites:
+
 - Widely compatible with host systems.
 - As easy as posible.
+- Good documented.
 - Easy to manage remotely.
+- Flexible and multipurpose.
 
-# Basic use
-The devenv runs natively on Ubuntu 20.04 distros. If your system runs Ubuntu 20.04, you will be able to use it natively.
-Otherwise, you have some other options:
+## Basic use
+
+The devcenv runs natively on Ubuntu 20.04 distros. If your system runs Ubuntu 20.04, you will be able to use it natively. Otherwise, you have these other options:
+
+- Install docker (recommended)
 - Virtual Machine with Ubuntu 20.04
 - Install WSL2 (only for Windows)
-- Install docker (this works even in WSL2, but not recommended in this case)
 
-### For using it in docker just add this step. Otherwise, you can skip this step.
-**Note:** Before run this step, you might be sure that:
+### Installing - Docker method. Otherwise, you can skip this step.
+
+**Note:** Before running this step, you should be sure of:
+
 - Docker is installed
 - Docker service/daemon is running
-- Your user is un docker group (sudo usermod -aG <yourUser> docker)
+- Your user is in the docker group `sudo usermod -aG $(whoami) docker`
 
-```
+```bash
 ./init-docker-env.sh
 ```
-### Installing dependencies
-```  
+
+### Installing - Ubuntu 20.04 method
+
+**Note:** The installation step has to be used just the very first time.
+
+```bash
 ./installDevDeps.sh
 ```
 
-### Build
-**Note:** See ./build.sh --help for further information.
-```  
+## Build
+
+You can build the entire image with settings by default. The result will a image bootable in a Raspberry Pi which runs a flutter app at the beggining. Just type:
+
+```bash
 ./build.sh
 ```
 
-### Cleaning
-```  
+Before starting the building, it will be requested to you the Wi-Fi settings (ssid + pass). This will be skipped if you set the enviroment variables `WIFISSID` and `WIFIPASS`.
+
+**Note:** See ./build.sh --help for further information.
+
+## Custom build command
+
+Build script let you enter your custom bitbake commands. This can be done by using the -bc or --bitbake-cmd argument followed by the double-quoted command. See some examples:
+
+```bash
+./build.sh --bitbake-cmd "bitbake -s | grep flutter"
+./build.sh -bc "bitbake -D wifi -c clean"
+./build.sh --bitbake-cmd "bitbake-layers show-layers"
+```
+
+## Interactive session
+
+This is a powerful way to debug and develop either your recipes or your flutter apps. If you are interested in open an interative session run this:
+
+```bash
+./build.sh --shell
+
+```
+
+Once you are inside the `shell` you will be able to use commands like:
+
+- bitbake
+- bitbake-getvar
+- bitbake-layers
+- devtool
+
+## Cleaning
+
+```bash
 ./cleanAll.sh
+# Keep in mind it could be dangerous in case you have unsaved changes.
+git clean -fdx
 ```
