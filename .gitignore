@@ -17,7 +17,11 @@ output.*
 .cache
 .wget-hsts
 .repoconfig
+.gitconfig
 .flutter
 .vpython-root/**/*
+.vscode-server
 .repo_.gitconfig.json
+.devcontainer
+.ssh
 build/

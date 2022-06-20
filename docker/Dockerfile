@@ -2,6 +2,16 @@ FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ARG USER
+ARG UID
+ARG GID
+ARG GROUP
+
+ENV USER=${USER}
+ENV UID=${UID}
+ENV GID=${GID}
+ENV GROUP=${GROUP}
+
 RUN apt -y update && \
     apt install -y --no-install-recommends \
         locales \
@@ -53,7 +63,18 @@ RUN dpkg-reconfigure locales && \
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir kas
 
+RUN addgroup "${GROUP}" --gid "${GID}"
+RUN useradd -d /home/${USER} -u "${UID}" -g "${GID}" "${USER}"&& mkdir -p /home/${USER}
+RUN chown -R "${USER}:${USER}" /home/${USER}
+RUN "${USER}:${USER}" | chpasswd
+RUN echo "$USER ALL=(root) NOPASSWD: /usr/bin/ansible-playbook *" >> /etc/sudoers
+
+RUN echo "export USER=${USER}" >> /etc/bash.bashrc
+RUN echo "export UID=${UID}" >> /etc/bash.bashrc
+RUN echo "export GID=${GID}" >> /etc/bash.bashrc
+RUN echo "export GROUP=${GROUP}" >> /etc/bash.bashrc
+
 WORKDIR /yocto
-ENV HOME /yocto
+ENV HOME "/home/${USER}"
 
 ENTRYPOINT [ "/yocto/docker/entrypoint" ]
