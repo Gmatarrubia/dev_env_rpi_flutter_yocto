@@ -1,0 +1,44 @@
+{
+    "name": "dev-env-yocto",
+    "image": "dev-env-yocto:latest",
+    "initializeCommand": "bash -i docker/dockerbuild.sh",
+    "onCreateCommand": "bash docker/vscode/onCreate.sh",
+    "postCreateCommand": "bash docker/vscode/postCreate.sh",
+    "postStartCommand": "bash -i docker/entrypoint",
+    "containerUser": "gmatarrubia",
+    "workspaceFolder": "/yocto",
+    "workspaceMount": "type=bind,source=${localWorkspaceFolder},target=/yocto",
+    "runArgs": ["--privileged", "--ipc=host"],
+    "containerEnv":
+    {
+      "USER": "${localEnv:USER}",
+      "UID": "${localEnv:UID}",
+      "GID": "${localEnv:GID}",
+      "GROUP": "${localEnv:GROUP}",
+      "DISPLAY": "${localEnv:DISPLAY}",
+      "XAUTHORITY": "/yocto/.Xauthority",
+      "SHELL": "/bin/bash",
+    },
+    "remoteEnv":
+    {
+      "USER": "${localEnv:USER}",
+      "UID": "${localEnv:UID}",
+      "GID": "${localEnv:GID}",
+      "GROUP": "${localEnv:GROUP}",
+      "DISPLAY": "${localEnv:DISPLAY}",
+      "XAUTHORITY": "/yocto/.Xauthority",
+      "SHELL": "/bin/bash",
+    },
+    "customizations": {
+      "vscode": {
+        "extensions": [
+			"mhutchie.git-graph",
+			"ms-python.python",
+			"timonwong.shellcheck",
+			"moshfeu.compare-folders",
+			"EugenWiens.bitbake",
+			"redhat.ansible"
+		]
+      }
+    },
+  }
