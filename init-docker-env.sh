@@ -24,16 +24,24 @@ then
     "${repoPath}"/docker/dockerbuild.sh
 fi
 
+__wifi_settings=
+if [ -n "${WIFISSID}" ] && [ -n "${WIFIPASS}" ]
+then
+    __wifi_settings+="--env WIFISSID=${WIFISSID}"
+    __wifi_settings+="--env WIFIPASS=${WIFIPASS}"
+fi
+
 docker run \
     -it --rm \
     --privileged \
     --name devenv \
-    --volume "${repoPath}":/yocto \
+    --mount type=bind,source="${repoPath}",target=/yocto \
     --env USER="$user" \
     --env UID="$uid" \
     --env GROUP="$group" \
     --env GID="$gid" \
     --env SHELL="/bin/bash" \
+    ${__wifi_settings[@]} \
     dev-env-yocto:latest \
     "${@}"
 

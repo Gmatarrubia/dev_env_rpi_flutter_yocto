@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# This script is the entry point for the docker container.
+
+export PATH=/yocto:${PATH}
+
+if [ -z "$(which python3)" ]
+then
+    /yocto/installDevEnv.sh
+fi
+
+# Check if it's needed to init Yocto devEnv
+if [ ! -d /yocto/sources ]
+then
+    kas checkout rpi-flutter.yml
+fi
+
+exit 0

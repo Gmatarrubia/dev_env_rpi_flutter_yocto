@@ -10,9 +10,9 @@ else
     grep -s -q ":$GID:" /etc/group || groupadd -g "$GID" "$GROUP"
     useradd -d /yocto -u "$UID" -g "$GID" "$USER"
     echo "$USER:$USER" | chpasswd
-    # Allow sudo without password
-    echo "$USER ALL=(root) NOPASSWD: /usr/bin/ansible-playbook *" >> /etc/sudoers
 fi
+# Allow sudo without password
+echo "$USER ALL=(root) NOPASSWD: /usr/bin/ansible-playbook *" >> /etc/sudoers
 
 export PATH=/yocto:${PATH}
 

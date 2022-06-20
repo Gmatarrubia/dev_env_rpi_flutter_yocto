@@ -7,7 +7,7 @@ source checkFunctions.sh
 __verbose=
 __bitbake_cmd=
 __only_shell=
-
+__wifi_settings_interactive=
 while (( $# )); do
     case ${1,,} in
         -v|--verbose)
@@ -22,6 +22,9 @@ while (( $# )); do
         --shell)
             __only_shell=1
             echo "Only shell mode"
+            ;;
+        -wi|--wifi-interactive)
+            __wifi_settings_interactive=1
             ;;
         -h|--help)
             print_help
@@ -47,6 +50,20 @@ check_kas
 if [ ! -d "${repoPath}/sources" ]
 then
     source ./start-environment "${CONF_FILE}"
+fi
+
+# Set WIFI configuration
+if [ ${__wifi_settings_interactive} -eq 1 ]
+then
+    read -p "Enter your ssid: " WIFISSID
+    read -p "Enter your pass: " WIFIPASS
+fi
+if [ -n "${WIFISSID}" ] && [ -n "${WIFIPASS}" ]
+then
+    pushd ./meta-config-pi/recipes-system/network-settings/wifi || return
+    sed -i -E "s/ssid=\".*\"/ssid=\"$WIFISSID\"/g" wpa_supplicant.conf
+    sed -i -E "s/psk=\".*\"/psk=\"$WIFIPASS\"/g" wpa_supplicant.conf
+    popd || return
 fi
 
 ##NOTE Enable verbose option

@@ -4,8 +4,8 @@
     "initializeCommand": "bash -i docker/dockerbuild.sh",
     "onCreateCommand": "bash docker/vscode/onCreate.sh",
     "postCreateCommand": "bash docker/vscode/postCreate.sh",
-    "postStartCommand": "bash -i docker/entrypoint",
-    "containerUser": "gmatarrubia",
+    "postStartCommand": "bash -i docker/vscode-entrypoint",
+    "containerUser": "${localEnv:USER}",
     "workspaceFolder": "/yocto",
     "workspaceMount": "type=bind,source=${localWorkspaceFolder},target=/yocto",
     "runArgs": ["--privileged", "--ipc=host"],
@@ -18,6 +18,8 @@
       "DISPLAY": "${localEnv:DISPLAY}",
       "XAUTHORITY": "/yocto/.Xauthority",
       "SHELL": "/bin/bash",
+      "WIFISSID": "${localEnv:WIFISSID}",
+      "WIFIPASS": "${localEnv:WIFIPASS}",
     },
     "remoteEnv":
     {
@@ -28,6 +30,8 @@
       "DISPLAY": "${localEnv:DISPLAY}",
       "XAUTHORITY": "/yocto/.Xauthority",
       "SHELL": "/bin/bash",
+      "WIFISSID": "${localEnv:WIFISSID}",
+      "WIFIPASS": "${localEnv:WIFIPASS}",
     },
     "customizations": {
       "vscode": {

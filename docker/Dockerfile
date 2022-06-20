@@ -63,6 +63,8 @@ RUN dpkg-reconfigure locales && \
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir kas
 
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
 RUN addgroup "${GROUP}" --gid "${GID}"
 RUN useradd -d /home/${USER} -u "${UID}" -g "${GID}" "${USER}"&& mkdir -p /home/${USER}
 RUN chown -R "${USER}:${USER}" /home/${USER}
