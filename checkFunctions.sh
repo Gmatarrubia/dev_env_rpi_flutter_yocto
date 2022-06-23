@@ -28,8 +28,13 @@ function check_vscode(){
         wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
         sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
         sudo apt install -y code
-        code --install-extension Dart-Code.dart-code Dart-Code.flutter mhutchie.git-graph ms-vscode-remote.remote-containers ms-vscode-remote.remote-wsl
-        code --install-extension ms-vscode-remote.vscode-remote-extensionpack timonwong.shellcheck
+        code --install-extension mhutchie.git-graph
+        code --install-extension ms-vscode-remote.vscode-remote-extensionpack
+        code --install-extension timonwong.shellcheck
+        code --install-extension moshfeu.compare-folders
+        code --install-extension ms-python.python
+        code --install-extension ms-azuretools.vscode-docker
+        code --install-extension EugenWiens.bitbake
     fi
 }
 function check_kas(){
@@ -39,6 +44,17 @@ function check_kas(){
         echo "Kas has already installed"
     else
         pip install kas
+    fi
+}
+
+function check_docker(){
+    if [ -n "$(which docker)" ]
+    then
+        echo "Docker already installed"
+    else
+        sudo apt install -y curl
+        curl -fsSL https://get.docker.com -o /tmp/get-docker.sh
+        sudo sh /tmp/get-docker.sh
     fi
 }
 
