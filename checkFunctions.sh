@@ -28,15 +28,29 @@ function check_vscode(){
         wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
         sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
         sudo apt install -y code
-        code --install-extension mhutchie.git-graph
-        code --install-extension ms-vscode-remote.vscode-remote-extensionpack
-        code --install-extension timonwong.shellcheck
-        code --install-extension moshfeu.compare-folders
-        code --install-extension ms-python.python
-        code --install-extension ms-azuretools.vscode-docker
-        code --install-extension EugenWiens.bitbake
     fi
+
+    list_of_extensions=(
+        mhutchie.git-graph
+        ms-vscode-remote.vscode-remote-extensionpack
+        timonwong.shellcheck
+        moshfeu.compare-folders
+        ms-python.python
+        ms-azuretools.vscode-docker
+        EugenWiens.bitbake
+    )
+
+    # Install missing extensions
+    for ext in "${list_of_extensions[@]}"
+    do
+        if [ "$(code --list-extensions | grep -c "${ext}")" -eq 0 ]
+        then
+            echo "Installing extension: ${ext}"
+            code --install-extension "${ext}"
+        fi
+    done
 }
+
 function check_kas(){
     # Check kas command
     if [ -n "$(which kas)" ]

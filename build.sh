@@ -53,7 +53,7 @@ then
 fi
 
 # Set WIFI configuration
-if [ ${__wifi_settings_interactive} -eq 1 ]
+if [ -n "${__wifi_settings_interactive}" ]
 then
     read -p "Enter your ssid: " WIFISSID
     read -p "Enter your pass: " WIFIPASS
@@ -67,7 +67,7 @@ then
 fi
 
 ##NOTE Enable verbose option
-if [ -n  "${__verbose}" ]
+if [ -n "${__verbose}" ]
 then
     echo '***************************************'
     kas shell "${CONF_FILE}" -c "bitbake-layers show-layers"
