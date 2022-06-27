@@ -8,6 +8,7 @@ __verbose=
 __bitbake_cmd=
 __only_shell=
 __wifi_settings_interactive=
+__debug=
 while (( $# )); do
     case ${1,,} in
         -v|--verbose)
@@ -25,6 +26,9 @@ while (( $# )); do
             ;;
         -wi|--wifi-interactive)
             __wifi_settings_interactive=1
+            ;;
+        -d|--debug)
+            __debug=":${repoPath}/debug.yml"
             ;;
         -h|--help)
             print_help
@@ -80,15 +84,15 @@ fi
 
 if [ -n "${__only_shell}" ]
 then
-    kas shell -E "${CONF_FILE}"
+    kas shell -E "${CONF_FILE}${__debug}"
     exit 0
 fi
 
 ###Enable option for only start
 if [ -z "${__bitbake_cmd[*]}" ]
 then
-    time kas build "${CONF_FILE}"
+    time kas build "${CONF_FILE}${__debug}"
 else
     echo "Executing command: ${__bitbake_cmd[*]}"
-    time kas shell "${CONF_FILE}" -c "${__bitbake_cmd[@]}"
+    time kas shell "${CONF_FILE}${__debug}" -c "${__bitbake_cmd[@]}"
 fi
