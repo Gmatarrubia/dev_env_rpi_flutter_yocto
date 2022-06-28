@@ -101,5 +101,9 @@ function print_help(){
     echo " "
     echo "--shell) Opens a bitbake shell without do anything else."
     echo " "
+    echo "-wi | --wifi-interactive) For setting Wi-Fi settings."
+    echo " "
+    echo "-d | --debug) Enables debug features on the local.conf"
+    echo " "
     echo "-h | --help) Prints this useful help :)"
 }
