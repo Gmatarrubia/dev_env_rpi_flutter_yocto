@@ -14,10 +14,10 @@ This devenv has been designed with the following prerequisites:
 
 ## Basic use
 
-The devcenv runs natively on Ubuntu 20.04 distros. If your system runs Ubuntu 20.04, you will be able to use it natively. Otherwise, you have these other options:
+The devcenv runs natively on Ubuntu 20.04/22.04 distros. If your system runs Ubuntu 20.04/22.04, you will be able to use it natively. Otherwise, you have these other options:
 
 - Install docker (recommended)
-- Virtual Machine with Ubuntu 20.04
+- Virtual Machine with Ubuntu 20.04/22.04
 - Install WSL2 (only for Windows)
 
 ### Installing - Docker method. Otherwise, you can skip this step.
