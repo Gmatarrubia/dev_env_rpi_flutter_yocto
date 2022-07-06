@@ -53,7 +53,7 @@ check_kas
 # Check if sources were downloaded
 if [ ! -d "${repoPath}/sources" ]
 then
-    source ./start-environment "${CONF_FILE}"
+    kas checkout "${CONF_FILE}"
 fi
 
 # Set WIFI configuration
