@@ -45,6 +45,9 @@ fi
 docker run \
     -it --rm \
     --privileged \
+    --ipc=host \
+    --network=host \
+    --publish-all \
     --name devenv \
     --mount type=bind,source="${repoPath}",target=/yocto \
     --env USER="$user" \
