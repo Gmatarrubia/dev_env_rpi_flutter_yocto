@@ -8,7 +8,7 @@
     "containerUser": "${localEnv:USER}",
     "workspaceFolder": "/yocto",
     "workspaceMount": "type=bind,source=${localWorkspaceFolder},target=/yocto",
-    "runArgs": ["--privileged", "--ipc=host"],
+    "runArgs": ["--privileged", "--ipc=host", "--network=host", "--publish-all"],
     "containerEnv":
     {
       "USER": "${localEnv:USER}",
