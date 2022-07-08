@@ -63,12 +63,13 @@ Before starting the building, you can set the Wi-Fi settings (ssid + pass).
 
 ## Custom build command
 
-Build script let you enter your custom bitbake commands. This can be done by using the -bc or --bitbake-cmd argument followed by the double-quoted command. See some examples:
+Build script let you enter your custom bitbake commands. This can be done by using the -bc or --bitbake-cmd argument followed by the double-quoted command. This argument must be placed in the last position of command in order to avoid conflicts. See some examples:
 
 ```bash
-./build.sh --bitbake-cmd "bitbake -s | grep flutter"
-./build.sh -bc "bitbake -D wifi -c clean"
-./build.sh --bitbake-cmd "bitbake-layers show-layers"
+./build.sh --bitbake-cmd bitbake -s | grep flutter
+./build.sh -bc bitbake -D wifi -c clean
+./build.sh --bitbake-cmd bitbake-layers show-layers
+./build.sh --verbose -wi --bitbake-cmd bitbake-layers show-layers
 ```
 
 ## Interactive session
