@@ -41,7 +41,8 @@
 			"timonwong.shellcheck",
 			"moshfeu.compare-folders",
 			"EugenWiens.bitbake",
-			"redhat.ansible"
+			"redhat.ansible",
+			"rogalmic.bash-debug"
 		]
       }
     },

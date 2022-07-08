@@ -38,6 +38,8 @@ function check_vscode(){
         ms-python.python
         ms-azuretools.vscode-docker
         EugenWiens.bitbake
+        rogalmic.bash-debug
+
     )
 
     # Install missing extensions

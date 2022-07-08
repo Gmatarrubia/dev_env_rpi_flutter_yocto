@@ -5,7 +5,7 @@ source checkFunctions.sh
 
 # Script arguments handle
 __verbose=
-__bitbake_cmd=
+__bitbake_cmd=()
 __only_shell=
 __wifi_settings_interactive=
 __debug=
@@ -17,7 +17,7 @@ while (( $# )); do
             ;;
         -bc|--bitbake-cmd)
             shift
-            __bitbake_cmd=("${@}")
+            __bitbake_cmd+=("${@}")
             echo Custom bitbake command: "${__bitbake_cmd[@]}"
             ;;
         --shell)
@@ -94,5 +94,5 @@ then
     time kas build "${CONF_FILE}${__debug}"
 else
     echo "Executing command: ${__bitbake_cmd[*]}"
-    time kas shell "${CONF_FILE}${__debug}" -c "${__bitbake_cmd[@]}"
+    time kas shell "${CONF_FILE}${__debug}" -c "${__bitbake_cmd[*]}"
 fi
