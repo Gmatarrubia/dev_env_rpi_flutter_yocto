@@ -14,9 +14,10 @@ This devenv has been designed with the following prerequisites:
 
 ## Basic use
 
-The devcenv runs natively on Ubuntu 20.04/22.04 distros. If your system runs Ubuntu 20.04/22.04, you will be able to use it natively. Otherwise, you have these other options:
+The devenv runs natively on Ubuntu 20.04/22.04 distros. If your system runs Ubuntu 20.04/22.04, you will be able to use it natively. Otherwise, you have these other options:
 
 - Install docker (recommended)
+- Visual Code: Dev in container (also recommended, only linux host)
 - Virtual Machine with Ubuntu 20.04/22.04
 - Install WSL2 (only for Windows)
 
@@ -28,11 +29,13 @@ The devcenv runs natively on Ubuntu 20.04/22.04 distros. If your system runs Ubu
 - Docker service/daemon is running
 - Your user is in the docker group `sudo usermod -aG $(whoami) docker`
 
+The script will try to install/config docker in case it wasn't installed. If installation or config is needed, you will have to reboot your host and launch the script again.
+
 ```bash
 ./init-docker-env.sh
 ```
 
-### Installing - Ubuntu 20.04 method
+### Installing - Ubuntu 20.04/22.04 native method
 
 **Note:** The installation step has to be used just the very first time.
 
@@ -48,7 +51,13 @@ You can build the entire image with settings by default. The result will a image
 ./build.sh
 ```
 
-Before starting the building, it will be requested to you the Wi-Fi settings (ssid + pass). This will be skipped if you set the enviroment variables `WIFISSID` and `WIFIPASS`.
+Before starting the building, you can set the Wi-Fi settings (ssid + pass).
+
+```bash
+./build.sh --wifi-interactive
+```
+
+**Note:** This will be skipped if you set the enviroment variables `WIFISSID` and `WIFIPASS` since the script will config the Wi-Fi automatically.
 
 **Note:** See ./build.sh --help for further information.
 
