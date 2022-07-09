@@ -49,6 +49,7 @@ You can build the entire image with settings by default. The result will a image
 
 ```bash
 ./build.sh
+# Building the image from scratch could take hours. Be patient
 ```
 
 Before starting the building, you can set the Wi-Fi settings (ssid + pass).
@@ -69,7 +70,7 @@ Build script let you enter your custom bitbake commands. This can be done by usi
 ./build.sh --bitbake-cmd bitbake -s | grep flutter
 ./build.sh -bc bitbake -D wifi -c clean
 ./build.sh --bitbake-cmd bitbake-layers show-layers
-./build.sh --verbose -wi --bitbake-cmd bitbake-layers show-layers
+./build.sh -j 8 -wi --bitbake-cmd bitbake-layers show-layers
 ```
 
 ## Interactive session
@@ -95,3 +96,10 @@ Once you are inside the `shell` you will be able to use commands like:
 # Keep in mind it could be dangerous in case you have unsaved changes.
 git clean -fdx
 ```
+
+## License
+
+Thank you to @jwinarske. This project is based on his work.
+Check it out here: https://github.com/meta-flutter/meta-flutter-rpi
+
+Check the LICENSE file to find detailed info about the license of this project.

@@ -9,6 +9,8 @@ __bitbake_cmd=()
 __only_shell=
 __wifi_settings_interactive=
 __debug=
+__parallel_limit=
+__cores=
 while (( $# )); do
     case ${1,,} in
         -v|--verbose)
@@ -28,7 +30,12 @@ while (( $# )); do
             __wifi_settings_interactive=1
             ;;
         -d|--debug)
-            __debug=":${repoPath}/debug.yml"
+            __debug=":${repoPath}/conf/debug.yml"
+            ;;
+        -j)
+            __parallel_limit=":${repoPath}/conf/parallel.yml"
+            __cores="$2"
+            shift
             ;;
         -h|--help)
             print_help
@@ -40,14 +47,14 @@ done
 
 # Start configuration
 export MACHINE=raspberrypi3
-export CONF_FILE="${repoPath}/rpi-flutter.yml"
+export CONF_FILE="${repoPath}/conf/rpi-flutter.yml"
 export KAS_BUILD_DIR="${repoPath}/${MACHINE}"
 export DL_DIR="${repoPath}/dl"
 export SSTATE_DIR="${repoPath}/sstate"
 export SHELL="/bin/bash"
 rm -rf "${MACHINE}"/conf/*
 
-#Check availability of the kas tool
+# Check availability of the kas tool
 check_kas
 
 # Check if sources were downloaded
@@ -70,7 +77,15 @@ then
     popd || return
 fi
 
-##NOTE Enable verbose option
+# Enable parallel configuration
+if [ -n "${__parallel_limit}" ]
+then
+    # Replaces current value in file
+    sed -i -E "s|PARALLEL_MAKE = \"-j.*\"|PARALLEL_MAKE = \"-j$__cores\"|g" "${__parallel_limit#?}"
+    sed -i -E "s|BB_NUMBER_THREADS = \".*\"|BB_NUMBER_THREADS = \"$__cores\"|g" "${__parallel_limit#?}"
+fi
+
+# Verbose option enables more detallied output
 if [ -n "${__verbose}" ]
 then
     echo '***************************************'
@@ -82,17 +97,18 @@ then
     kas shell "${CONF_FILE}" -c "bitbake -e" > bb.environment
 fi
 
+# Start environment in shell mode
 if [ -n "${__only_shell}" ]
 then
     kas shell -E "${CONF_FILE}${__debug}"
     exit 0
 fi
 
-###Enable option for only start
+
 if [ -z "${__bitbake_cmd[*]}" ]
 then
-    time kas build "${CONF_FILE}${__debug}"
+    time kas build "${CONF_FILE}${__debug}${__parallel_limit}"
 else
     echo "Executing command: ${__bitbake_cmd[*]}"
-    time kas shell "${CONF_FILE}${__debug}" -c "${__bitbake_cmd[*]}"
+    time kas shell "${CONF_FILE}${__debug}${__parallel_limit}" -c "${__bitbake_cmd[*]}"
 fi
