@@ -25,7 +25,7 @@ fi
 if [ ! -d /yocto/sources ]
 then
     ln -s /usr/bin/python3 /usr/bin/python
-    sudo --user="${USER}" kas checkout rpi-flutter.yml
+    sudo --user="${USER}" kas checkout conf/rpi-flutter.yml
     chown -R $USER:$USER /yocto/sources
     chmod -R 755 /yocto/sources
 fi
