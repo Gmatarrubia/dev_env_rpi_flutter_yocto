@@ -44,9 +44,9 @@ repos:
     refspec: 088904d40231d9e099c2f5039cd3c2bc47d332d1
 
   meta-flutter:
-    url: https://github.com/meta-flutter/meta-flutter
+    url: https://github.com/Gmatarrubia/meta-flutter.git
     path: sources/meta-flutter
-    refspec: 050c679e6a3d64c8b43efb2fefbea8dc22139d00
+    refspec: honister
 
   meta-vulkan:
     url: https://github.com/jwinarske/meta-vulkan

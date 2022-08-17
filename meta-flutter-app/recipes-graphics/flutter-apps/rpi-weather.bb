@@ -17,8 +17,8 @@ FLUTTER_RUNTIME = "release"
 
 
 DEPENDS += " \
-    flutter-engine-${FLUTTER_RUNTIME} \
-    flutter-pi-${FLUTTER_RUNTIME} \
+    flutter-engine-runtime${FLUTTER_RUNTIME} \
+    flutter-pi-runtime${FLUTTER_RUNTIME} \
 "
 
 RDEPENDS_${PN} += " \

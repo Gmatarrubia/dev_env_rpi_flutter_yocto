@@ -1,5 +1,5 @@
 
 CORE_IMAGE_EXTRA_INSTALL:append = " \
-    flutter-pi-release \
+    flutter-pi \
     rpi-weather \
 "
