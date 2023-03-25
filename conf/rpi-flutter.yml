@@ -10,12 +10,12 @@ repos:
   meta-raspberrypi:
     url: https://github.com/agherzan/meta-raspberrypi
     path: sources/meta-raspberrypi
-    refspec: 378d4b6e7ba64b6a9a701457cc3780fa896ba5dc
+    refspec: dacad9302a92b0b7edf8546cdcad1f8ef753e462
 
   poky:
     url: https://git.yoctoproject.org/git/poky
     path: sources/poky
-    refspec: ce323dd1a92a5be02571beddd6c240c215258f39
+    refspec: 	85661be8ff3623faf05525bc9f27a2457381f8e9
     layers:
       meta:
       meta-poky:
@@ -24,7 +24,7 @@ repos:
   meta-openembedded:
     url: https://github.com/openembedded/meta-openembedded
     path: sources/meta-openembedded
-    refspec: 9a0caf5b09e14a28a54c3f8524d97530aeb8152c
+    refspec: kirkstone
     layers:
       meta-oe:
       meta-python:
@@ -36,22 +36,22 @@ repos:
   meta-security:
     url: https://git.yoctoproject.org/git/meta-security
     path: sources/meta-security
-    refspec: fb77606aef461910db4836bad94d75758cc2688c
+    refspec: cc20e2af2ae1c74e306f6c039c4963457c4cbd0f
 
   meta-clang:
     url: https://github.com/kraj/meta-clang
     path: sources/meta-clang
-    refspec: 088904d40231d9e099c2f5039cd3c2bc47d332d1
+    refspec: 7e3f2a4126d1bfacda497dfa6b59f3f471f1a984
 
   meta-flutter:
     url: https://github.com/Gmatarrubia/meta-flutter.git
     path: sources/meta-flutter
-    refspec: honister
+    refspec: kirkstone
 
   meta-vulkan:
     url: https://github.com/jwinarske/meta-vulkan
     path: sources/meta-vulkan
-    refspec: 8f3f73b9d477196abdfb7859c7970d37f157b28c
+    refspec: b9510ad52bab4c4f88ae3b4ba2405de6e06cfd9c
 
   meta-config-pi:
     path: meta-config-pi
