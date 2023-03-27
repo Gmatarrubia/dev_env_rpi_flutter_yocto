@@ -8,7 +8,7 @@ LICENSE = "CLOSED"
 inherit flutter-app
 
 SRC_URI = "git://github.com/Gmatarrubia/rpi_weather;protocol=https;branch=main"
-SRCREV = "main"
+SRCREV = "0b7fedf28a2ed671968866d4b5c8b597622a8b86"
 
 S = "${WORKDIR}/git"
 
@@ -17,10 +17,10 @@ FLUTTER_RUNTIME = "release"
 
 
 DEPENDS += " \
-    flutter-engine-runtime${FLUTTER_RUNTIME} \
-    flutter-pi-runtime${FLUTTER_RUNTIME} \
+    flutter-engine \
+    flutter-pi \
 "
 
 RDEPENDS_${PN} += " \
-    flutter-pi-${FLUTTER_RUNTIME} \
+    flutter-pi \
 "
