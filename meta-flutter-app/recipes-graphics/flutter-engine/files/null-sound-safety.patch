@@ -1,0 +1,21 @@
+--- src/third_party/dart/runtime/observatory/lib/src/service/object.dart	2023-03-27 09:14:44.000000000 +0000
++++ src/third_party/dart/runtime/observatory/lib/src/service/object.dart	2023-03-27 09:46:09.396545604 +0000
+@@ -2136,7 +2136,7 @@
+   int get length => _map.length;
+
+   // Suppress compile-time error about missing Map methods.
+-  noSuchMethod(_) => throw "Unimplemented ServiceMap method";
++  noSuchMethod(Invocation i) => super.noSuchMethod(i);
+
+   String toString() => "ServiceMap($_map)";
+ }
+--- src/third_party/dart/runtime/observatory/BUILD.gn	2023-03-27 09:14:44.000000000 +0000
++++ src/third_party/dart/runtime/observatory/BUILD.gn	2023-03-27 10:43:55.440025507 +0000
+@@ -25,7 +25,6 @@
+     "-o",
+     rebase_path(output),
+     "--packages=" + rebase_path("../../.dart_tool/package_config.json"),
+-    "--no-sound-null-safety",
+     rebase_path("web/main.dart"),
+   ]
+   if (is_debug) {
