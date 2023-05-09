@@ -10,12 +10,12 @@ repos:
   meta-raspberrypi:
     url: https://github.com/agherzan/meta-raspberrypi
     path: sources/meta-raspberrypi
-    refspec: dacad9302a92b0b7edf8546cdcad1f8ef753e462
+    refspec: kirkstone
 
   poky:
     url: https://git.yoctoproject.org/git/poky
     path: sources/poky
-    refspec: 85661be8ff3623faf05525bc9f27a2457381f8e9
+    refspec: kirkstone
     layers:
       meta:
       meta-poky:
@@ -36,12 +36,12 @@ repos:
   meta-security:
     url: https://git.yoctoproject.org/git/meta-security
     path: sources/meta-security
-    refspec: cc20e2af2ae1c74e306f6c039c4963457c4cbd0f
+    refspec: kirkstone
 
   meta-clang:
     url: https://github.com/kraj/meta-clang
     path: sources/meta-clang
-    refspec: 7e3f2a4126d1bfacda497dfa6b59f3f471f1a984
+    refspec: kirkstone
 
   meta-flutter:
     url: https://github.com/Gmatarrubia/meta-flutter.git
@@ -51,7 +51,7 @@ repos:
   meta-vulkan:
     url: https://github.com/jwinarske/meta-vulkan
     path: sources/meta-vulkan
-    refspec: b9510ad52bab4c4f88ae3b4ba2405de6e06cfd9c
+    refspec: kirkstone
 
   meta-config-pi:
     path: meta-config-pi
