@@ -59,7 +59,7 @@ function check_kas(){
     then
         echo "Kas has already installed"
     else
-        pip install kas
+        pip install kas==3.2.3
     fi
 }
 
